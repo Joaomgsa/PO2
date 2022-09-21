@@ -1,4 +1,4 @@
-parameters: 
+parameters: #Conjuntos e Parametros
 
 	#Conjuntos de Formulacao
 	Produtos := set(1,2);
@@ -8,13 +8,13 @@ parameters:
 	# Parametros da formulaçao
 
 	PRECO[Produtos] :(75, 100);
-	CAPACIDADE(Recursos) :=(350, 800)
-	CONSUMO[Recursos,Produtos] := ( (1,5,2), (3,4) );
+	CAPACIDADE[Recursos] :=(350, 800);
+	CONSUMO[Recursos,Produtos] := ( (1.5,2), (3,4) );
 
 variables:
-	x{Produtos}: integer[0..];
+	x[Produtos]: integer[0..];
 
 objectives: sum{j in Produtos: PRECO[j]*x[j]} -> max;
 
 constraints: 
-	DispRecursos{ i in Recursos: sum(j in Produtos: CONSUMO[i,j}*x[j]} <= CAPACIDADE[i];}
+	DispRecursos{i in Recursos: sum{j in Produtos: CONSUMO[i,j]*x[j] } <= CAPACIDADE[i];}
